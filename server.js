@@ -4,6 +4,11 @@ var port = process.env.PORT || 8000
 var morgan = require('morgan')
 var mongoose = require('mongoose')
 var User = require('./app/models/user')
+var bodyParser = require('body-parser')
+
+// body parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 // morgan
 app.use(morgan('dev'))
@@ -16,6 +21,17 @@ mongoose.connect('mongodb://localhost/tutorial', function(err){
 		console.log('Successfully connected to the database')
 	}
 })
+
+// routes
+app.post('/users', function(req, res){
+	var user = new User()
+	user.username = req.body.username
+	user.password = req.body.password
+	user.email = req.body.email
+	user.save()
+	res.send('user created')
+})
+
 
 
 // listen
