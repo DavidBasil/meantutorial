@@ -22,7 +22,7 @@ var UserSchema = new Schema({
 })
 
 // bcrypt(hash) user password
-UserSchema.pre('save', function(){
+UserSchema.pre('save', function(next){
 	var user = this
 	bcrypt.hash(user.password, null, null, function(err, hash){
 		if(err){

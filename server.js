@@ -28,10 +28,19 @@ app.post('/users', function(req, res){
 	user.username = req.body.username
 	user.password = req.body.password
 	user.email = req.body.email
-	user.save()
-	res.send('user created')
+	var query = req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.email == null || req.body.email == ''
+	if (query){
+		res.send('Ensure username, email and password are provided')
+	} else {
+		user.save(function(err){
+			if(err){
+				res.send('Username or Email already exists')
+			} else {
+				res.send('user created')
+			}
+		})
+	}
 })
-
 
 
 // listen
