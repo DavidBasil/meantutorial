@@ -6,12 +6,14 @@ var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 var router = express.Router()
 var appRoutes = require('./app/routes/api')(router)
+var path = require('path')
 
 // morgan
 app.use(morgan('dev'))
 // body parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.static(__dirname + '/public'))
 app.use('/api', appRoutes)
 
 
@@ -24,6 +26,9 @@ mongoose.connect('mongodb://localhost/tutorial', function(err){
 	}
 })
 
+app.get('*', function(req, res){
+	res.sendFile(path.join(__dirname + '/public/app/views/index.html'))
+})
 
 // listen
 app.listen(port, function(){
