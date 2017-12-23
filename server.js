@@ -3,6 +3,7 @@ var app = express()
 var port = process.env.PORT || 8000
 var morgan = require('morgan')
 var mongoose = require('mongoose')
+var User = require('./app/models/user')
 
 // morgan
 app.use(morgan('dev'))
@@ -17,7 +18,7 @@ mongoose.connect('mongodb://localhost/tutorial', function(err){
 })
 
 
-
+// listen
 app.listen(port, function(){
 	console.log('Running the server on port ' + port)
 })
