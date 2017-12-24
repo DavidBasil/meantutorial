@@ -8,11 +8,15 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="../../favicon.ico"> -->
 		<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/assets/css/animate.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
 		<script src="/assets/js/angular.js"></script>
 		<script src="/assets/js/angular-route.js"></script>
 		<script src="/assets/js/angular-animate.js"></script>
 		<script src="/app/app.js"></script>
 		<script src="/app/routes.js"></script>
+		<script src="/app/controllers/userCtrl.js"></script>
+		<script src="/app/services/userService.js"></script>
     <title>Theme Template for Bootstrap</title>
 		<base href="/">
   </head>
@@ -35,7 +39,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/register">Register</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -53,13 +57,7 @@
       </div>
     </nav>
 
-    <div class="container theme-showcase" role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Theme example</h1>
-        <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
-      </div>
+    <div class="container theme-showcase" role="main" style="margin-top:30px;">
 
 			<div ng-view></div>
 
