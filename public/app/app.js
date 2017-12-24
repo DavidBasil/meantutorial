@@ -1,2 +1,2 @@
-angular.module('userApp', ['appRoutes', 'userController', 'userService', 'ngAnimate'])
+angular.module('userApp', ['appRoutes', 'userController', 'userService', 'ngAnimate', 'mainController', 'authService'])
 
