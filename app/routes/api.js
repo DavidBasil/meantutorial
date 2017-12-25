@@ -1,4 +1,6 @@
 var User = require('../models/user')
+var jwt = require('jsonwebtoken')
+var secret = 'harry potter'
 
 module.exports = function(router) {
 	// user registration
@@ -37,7 +39,8 @@ module.exports = function(router) {
 					if (!validPassword){
 						res.json({success: false, message: 'Could not authenticate password'})
 					} else {
-						res.json({success: true, message: 'User authenticated'})
+						var token = jwt.sign({ username: user.username, email: user.email }, secret, {expiresIn: '24h'})
+						res.json({success: true, message: 'User authenticated', token: token})
 					}
 				}
 			})
