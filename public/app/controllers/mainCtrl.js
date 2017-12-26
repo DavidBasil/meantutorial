@@ -1,11 +1,21 @@
 angular.module('mainController', ['authService'])
-	.controller('mainCtrl', function(Auth, $timeout, $location){
+	.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope){
 		var app = this
-		if (Auth.isLoggedIn()){
-			console.log('Success: user is logged in')
-		} else {
-			console.log('Failure: user is not logged in')
-		}
+		app.loadme = false
+		$rootScope.$on('$routeChangeStart', function(){
+			if (Auth.isLoggedIn()){
+				app.isLoggedIn = true
+				Auth.getUser().then(function(data){
+					app.username = data.data.username
+					app.useremail = data.data.email
+					app.loadme = true
+				})
+			} else {
+				app.isLoggedIn = false
+				app.username = ''
+				app.loadme = true
+			}
+		})
 		this.doLogin = function(loginData){
 			app.loading = true
 			app.errorMsg = false
@@ -16,6 +26,8 @@ angular.module('mainController', ['authService'])
 						app.successMsg = data.data.message + '...logging in'
 						$timeout(function(){
 							$location.path('/about')
+							app.loginData = ''
+							app.successMsg = false
 						}, 2000)
 					} else {
 						app.loading = false
