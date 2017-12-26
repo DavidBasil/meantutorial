@@ -7,7 +7,8 @@
 	<input type="text" name="username" placeholder="Your username" class="form-control" ng-model="main.loginData.username"><br>
 	<label>Password:</label>
 	<input type="password" name="password" placeholder="Your password" class="form-control" ng-model="main.loginData.password"><br>
-	<button type="submit" class="btn btn-primary">Login</button>
+	<button type="submit" class="btn btn-primary">Login</button>&nbsp
+	<button class="btn btn-success" type="button" ng-click="main.facebook()">Facebook</button>
 </form>
 <br>
 
@@ -23,4 +24,7 @@
 <br>
 <div class="row show-hide-message" ng-show="main.errorMsg">
 	<div class="alert alert-danger">{{ main.errorMsg }}</div>
+</div><!-- /row show-hide-message -->
+<div class="row show-hide-message" ng-show="facebook.errorMsg">
+	<div class="alert alert-danger">{{ facebook.errorMsg }}</div>
 </div><!-- /row show-hide-message -->

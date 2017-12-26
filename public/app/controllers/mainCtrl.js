@@ -1,5 +1,5 @@
 angular.module('mainController', ['authService'])
-	.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope){
+	.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $window){
 		var app = this
 		app.loadme = false
 		$rootScope.$on('$routeChangeStart', function(){
@@ -15,7 +15,13 @@ angular.module('mainController', ['authService'])
 				app.username = ''
 				app.loadme = true
 			}
+			if($location.hash() == '_=_'){
+				$location.hash(null)
+			}
 		})
+		this.facebook = function(){
+			$window.location = $window.location.protocol + '//' + $window.location.host + '/auth/facebook'
+		}
 		this.doLogin = function(loginData){
 			app.loading = true
 			app.errorMsg = false
