@@ -22,6 +22,12 @@ angular.module('mainController', ['authService'])
 		this.facebook = function(){
 			$window.location = $window.location.protocol + '//' + $window.location.host + '/auth/facebook'
 		}
+		this.twitter = function(){
+			$window.location = $window.location.protocol + '//' + $window.location.host + '/auth/twitter'
+		}
+		this.google = function(){
+			$window.location = $window.location.protocol + '//' + $window.location.host + '/auth/google'
+		}
 		this.doLogin = function(loginData){
 			app.loading = true
 			app.errorMsg = false
