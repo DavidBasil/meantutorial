@@ -16,11 +16,31 @@ module.exports = function(router) {
 		} else {
 			user.save(function(err){
 				if(err){
-					if (err.errors.name){
-						res.json({success: false, message: err.errors.name.message})
-					}
+					if(err.errors != null){
+						if (err.errors.name){
+							res.json({ success: false, message: err.errors.name.message })
+						} else if (err.errors.email){
+							res.json({ success: false, message: err.errors.email.message })
+						} else if (err.errors.username){
+							res.json({ success: false, message: err.errors.username.message })
+						} else if (err.errors.password){
+							res.json({ success: false, message: err.errors.password.message })
+						} else {
+							res.json({ success: false, message: err })
+						} 
+					}else if (err){
+							if (err.code == 11000){
+								if (err.errmsg[61] == 'u'){
+									res.json({ success: false, message: 'That username already taken' })
+								} else if (err.errmsg[61] == 'e'){
+									res.json({ success: false, message: 'That email is already taken' })
+								}
+							} else {
+								res.json({ sucess: true, message: 'user created' })
+							}
+						}
 				} else {
-					res.json({success: true, message: 'User created'})
+					res.json({ success: true, message: 'User created' })
 				}
 			})
 		}
