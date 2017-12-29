@@ -16,7 +16,9 @@ module.exports = function(router) {
 		} else {
 			user.save(function(err){
 				if(err){
-					res.json({success: false, message: 'Username or Email already exists!'})
+					if (err.errors.name){
+						res.json({success: false, message: err.errors.name.message})
+					}
 				} else {
 					res.json({success: true, message: 'User created'})
 				}

@@ -1,13 +1,22 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var bcrypt = require('bcrypt-nodejs')
+var titlize = require('mongoose-title-case')
+var validate = require('mongoose-validator')
+
+var nameValidator = [
+	validate({
+		validator: 'matches',
+		arguments: /^[a-zA-Z]+$/
+	})
+]
 
 // user schema
 var UserSchema = new Schema({
 	name: {
 		type: String,
-		lowercase: true,
-		required: true
+		required: true,
+		validate: nameValidator
 	},
 	username: {
 		type: String,
@@ -37,6 +46,11 @@ UserSchema.pre('save', function(next){
 		next()
 	})
 })
+
+// Attach some mongoose hooks 
+UserSchema.plugin(titlize, {
+  paths: [ 'name'] // Array of paths 
+});
 
 // password validation
 UserSchema.methods.comparePassword = function(password){
