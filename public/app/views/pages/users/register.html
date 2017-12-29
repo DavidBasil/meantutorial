@@ -2,9 +2,18 @@
 	<h2>User registration</h2>
 </div><!-- /page-header -->
 
-<form ng-submit="register.regUser()">
-	<label>Name:</label>
-	<input type="text" name="name" placeholder="Your name" class="form-control" ng-model="register.regData.name"><br>
+<form name="regForm" ng-submit="register.regUser()" novalidate>
+	<div ng-class="{'has-success': (regForm.name.$valid && !regForm.name.$pristine), 'has-error': (!regForm.name.$valid && !regForm.name.$pristine) || (!regForm.name.$valid && regForm.$submitted)}">
+		<label>Name:</label>
+		<input type="text" name="name" placeholder="Your name" class="form-control" ng-model="register.regData.name" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minlength="3" ng-maxlength="20" required><br>
+		<p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.required) || (regForm.$submitted && regForm.name.$error.required)">This field is required</p>
+		<ul class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minglength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)">
+			<li>Must have a space between first and last name</li>
+			<li>Must not contain any special characters</li>
+			<li>Must not contain any numbers</li>
+			<li>Must be at least 3 characters but no more than 20</li>
+		</ul>
+	</div>
 	<label>Email:</label>
 	<input type="text" name="email" placeholder="Your email" class="form-control" ng-model="register.regData.email"><br>
 	<label>Username:</label>
@@ -13,6 +22,12 @@
 	<input type="password" name="password" placeholder="Your password" class="form-control" ng-model="register.regData.password"><br>
 	<button type="submit" class="btn btn-primary">Register</button>
 </form>
+
+<span><strong>Is this form pristine (new): </strong>{{ regForm.$pristine }}</span><br>
+<span><strong>Does this form have errors: </strong>{{ regForm.$error }}</span><br>
+<span><strong>Was the form submitted: </strong>{{ regForm.$submitted }}</span><br>
+<span><strong>Is this form valid: </strong>{{ regForm.$valid }}</span>
+
 <br>
 
 <div class="jumbotron text-center" ng-show="register.loading">
