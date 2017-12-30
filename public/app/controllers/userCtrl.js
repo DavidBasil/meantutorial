@@ -1,22 +1,27 @@
 angular.module('userController', ['userService'])
 	.controller('regCtrl', function($http, $location, $timeout, User){
 		var app = this
-		this.regUser = function(regData){
+		this.regUser = function(regData, valid){
 			app.loading = true
 			app.errorMsg = false
-			User.create(app.regData)
-				.then(function(data){
-				if(data.data.success){
-					app.loading = false
-					app.successMsg = data.data.message + '...redirecting'
-					$timeout(function(){
-						$location.path('/')
-					}, 2000)
-				} else {
-					app.loading = false
-					app.errorMsg = data.data.message
-				}
-			})
+			if (valid){
+				User.create(app.regData)
+					.then(function(data){
+						if(data.data.success){
+							app.loading = false
+							app.successMsg = data.data.message + '...redirecting'
+							$timeout(function(){
+								$location.path('/')
+							}, 2000)
+						} else {
+							app.loading = false
+							app.errorMsg = data.data.message
+						}
+					})
+			} else {
+				app.loading = false
+				app.errorMsg = "Please ensure the form is filled properly"
+			}
 		}
 	})
 	.controller('facebookCtrl', function($routeParams, Auth, $location, $window){
