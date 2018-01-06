@@ -70,8 +70,6 @@ angular.module('userController', ['userService'])
 						} else {
 							$scope.confirmed = false
 						}
-						console.log(ele)
-						console.log($scope.confirm)
 					})
 				}
 			},

@@ -14,5 +14,9 @@ angular.module('userService', [])
 			return $http.post('/api/checkemail', regData)
 		}
 
+		userFactory.activateAccount = function(token){
+			return $http.put('/api/activate' + token)
+		}
+
 		return userFactory
 	})
